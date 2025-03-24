@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class inventoriSlot : MonoBehaviour
 {
     public ScriptableItem slotItem; 
+    public int slotNumber;
 
     public GameObject insptionWindow;
 
@@ -28,8 +29,11 @@ public class inventoriSlot : MonoBehaviour
 
     void InspectItem()
     {
-        if(slotItem ! = null && !insptionWindow.activeInHierarchy)
+        if(slotItem != null && !insptionWindow.activeInHierarchy)
         {
+            deleteButton.onClick.AddListener(RemoveItem);
+            closeButton.onClick.AddListener(CloseWindow);
+
             insptionImage.sprite = slotItem.itemSprite;
             insptionName.text = slotItem.itemName;
             insptionDescription.text = slotItem.itemDescription;
@@ -37,4 +41,27 @@ public class inventoriSlot : MonoBehaviour
             insptionWindow.SetActive(true);
         }
     }
+
+    void RemoveItem()
+    {
+        if(InventoreManager.instance.wapon[slotNumber] != null)
+        {
+            InventoreManager.instance.wapon[slotNumber] = null;
+            InventoreManager.instance.waponName[slotNumber].text = "Empty";
+            InventoreManager.instance.waponSprites[slotNumber].sprite = null;
+        }
+
+        CloseWindow(); 
+
+    }
+
+    void CloseWindow()
+    {
+        deleteButton.onClick.RemoveListener(RemoveItem);
+        insptionWindow.SetActive(false);
+    }
+
+
+
+
 }

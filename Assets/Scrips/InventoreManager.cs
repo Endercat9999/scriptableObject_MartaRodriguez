@@ -36,12 +36,14 @@ public class InventoreManager : MonoBehaviour
                 waponSprites[i].sprite = items.itemSprite;
 
 
-                weaponSlots[i].slotItem = items; 
+                waponSlots[i].slotItem = items; 
 
                 return; 
             }
         }
     }
+
+    
 
     
 }
